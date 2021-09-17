@@ -7,11 +7,33 @@ jobs:
   build-terraform-validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: set target env
+        env:
+          TERRAFORM_VERSION: 1.0
+          ENV: alpha
+      - name: Checkout State repository
         uses: actions/checkout@v2
+        with:
+          path: terra-1-state
+      - name: Checkout Plan repository
+        uses: actions/checkout@v2
+        with:
+          repository: jefeish/terra-1-plan
+          path: terra-1-plan
+      - name: Checkout Vars repository
+        uses: actions/checkout@v2
+        with:
+          repository: jefeish/terra-1-vars
+          path: terra-1-vars
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_version: ${{ TERRAFORM_VERSION }}
+      - name: where am I
+        run: pwd && ls && cd terra-1-plan/ && ls
       - name: Terraform init
         run: terraform init
-      - name: Terraform validate
-        run: terraform validate
+      - name: Terraform plan
+        run: terraform plan -var-file=../terra-1-vars/environment/${{ ENV }}/terraform.tfvars -state=../terra-1-state/environment/${{ ENV }}/terraform.tfstate
+      - name: Terraform apply
+        run: echo 'yes' | terraform apply -var-file=../terra-1-vars/environment/${{ ENV }}/terraform.tfvars -state=../terra-1-state/environment/${{ ENV }}/terraform.tfstate
