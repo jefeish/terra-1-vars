@@ -40,16 +40,13 @@ jobs:
       uses: hashicorp/setup-terraform@v1.2.1
       with:
         terraform_version: ${{ env.TERRAFORM_VERSION }}
-        
-    - name: where am I
-      run: pwd && ls && ls -la ..
       
     - name: Terraform init
       run: cd terra-1-plan && terraform init
         
     - name: Terraform plan
-      run: cd terra-1-plan && pwd && ls -la && terraform plan -var-file=../environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
+      run: cd terra-1-plan && terraform plan -var-file=../environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
     
     - name: Terraform apply
-      run: cd terra-1-plan && pwd && ls -la && echo "yes" | terraform apply -var-file=../environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
+      run: cd terra-1-plan && terraform apply -auto-approve -var-file=../environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
  
