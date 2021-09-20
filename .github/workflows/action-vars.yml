@@ -41,7 +41,7 @@ jobs:
       run: cd terra-1-plan && terraform init
         
     - name: Terraform plan
-      run: cd terra-1-plan && terraform plan -var-file=../terra-1-vars/environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
+      run: cd terra-1-plan && ls -la && terraform plan -var-file=../terra-1-vars/environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
     
     - name: Terraform apply
       run: echo 'yes' | terraform apply -var-file=../terra-1-vars/environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
