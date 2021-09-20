@@ -6,11 +6,10 @@ on:
 jobs:
   build-terraform-validate:
     runs-on: ubuntu-latest
-    steps:
-    - name: set target env
-      env:
+    env:
         TERRAFORM_VERSION: 1.0
         ENV: alpha
+    steps:
     - name: Checkout State repository
       uses: actions/checkout@v2
       with:
