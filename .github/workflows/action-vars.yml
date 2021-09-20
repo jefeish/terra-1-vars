@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+            
+    - name: Checkout Vars repository
+      uses: actions/checkout@v2
+
     - name: Checkout State repository
       uses: actions/checkout@v2
       with:
@@ -23,9 +27,6 @@ jobs:
       with:
         repository: jefeish/terra-1-plan
         path: terra-1-plan
-        
-    - name: Checkout Vars repository
-      uses: actions/checkout@v2
 
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v1.2.1
