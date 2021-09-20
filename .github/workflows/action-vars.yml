@@ -30,7 +30,7 @@ jobs:
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v1.2.1
       with:
-        terraform_version: ${{TERRAFORM_VERSION}}
+        terraform_version: 0.15
     - name: where am I
       run: pwd && ls && cd terra-1-plan/ && ls
     - name: Terraform init
