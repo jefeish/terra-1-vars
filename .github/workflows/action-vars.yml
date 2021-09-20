@@ -33,7 +33,7 @@ jobs:
         terraform_version: ${{ env.TERRAFORM_VERSION }}
         
     - name: where am I
-      run: pwd && ls
+      run: pwd && ls && ls -la ..
       
     - name: Terraform init
       run: cd terra-1-plan && terraform init
