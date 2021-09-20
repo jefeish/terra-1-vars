@@ -17,29 +17,29 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: terra-1-state
+        
     - name: Checkout Plan repository
       uses: actions/checkout@v2
       with:
         repository: jefeish/terra-1-plan
         path: terra-1-plan
+        
     - name: Checkout Vars repository
       uses: actions/checkout@v2
-      with:
-        repository: jefeish/terra-1-vars
 
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v1.2.1
       with:
         terraform_version: ${{ env.TERRAFORM_VERSION }}
+        
     - name: where am I
       run: pwd && ls
+      
     - name: Terraform init
-      run: 
-        pwd
-        terraform init
+      run: terraform init
         
     - name: Terraform plan
-
       run: terraform plan -var-file=../terra-1-vars/environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
+    
     - name: Terraform apply
       run: echo 'yes' | terraform apply -var-file=../terra-1-vars/environment/${{env.ENV}}/terraform.tfvars -state=../terra-1-state/environment/${{env.ENV}}/terraform.tfstate
